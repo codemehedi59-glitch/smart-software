@@ -1,0 +1,33 @@
+Smart Diagnostic Center — Setup (Windows)
+
+গুরুত্বপূর্ণ: src/App.jsx, src/doctors.js এবং src/style.css-এর বিদ্যমান ফিচারগুলো অক্ষত রাখা হয়েছে।
+
+A) Chrome থেকে Installable Website / PWA বানাতে
+1. Project folder-এ VS Code Terminal খুলুন।
+2. npm install
+3. npm run build:web
+4. তৈরি হওয়া dist folder-টি Netlify Drop-এ deploy করুন, অথবা আপনার Netlify site-এর production deploy-এ dist publish directory হিসেবে দিন।
+5. Deploy শেষ হলে Chrome-এ HTTPS website খুলুন। Address bar-এর Install icon অথবা Chrome menu > Cast, save and share > Install page as app (মেনুর নাম Chrome version অনুযায়ী বদলাতে পারে) ব্যবহার করুন।
+
+B) Android APK বানাতে
+প্রয়োজন: Node.js LTS, Android Studio, Android SDK এবং Java/JDK (Android Studio-র bundled JDK ব্যবহার করা যায়)।
+
+প্রথমবার:
+1. VS Code Terminal-এ npm install চালান।
+2. npm run android:setup চালান। Android platform তৈরি ও sync হবে।
+3. npm run android:open চালিয়ে Android Studio খুলুন।
+4. Android Studio-তে Gradle sync শেষ হওয়া পর্যন্ত অপেক্ষা করুন। তারপর Build > Build Bundle(s) / APK(s) > Build APK(s) চাপুন।
+5. সাধারণত APK পাওয়া যাবে: android/app/build/outputs/apk/debug/app-debug.apk
+
+পরবর্তীবার কোড পরিবর্তনের পর:
+1. npm run android:sync
+2. Android Studio-তে Build > Build APK(s), অথবা Windows CMD-তে npm run android:apk চালান।
+
+C) Live website sync
+Settings-এ Website URL এবং Reception API Token দিতে হবে। Token-টি সংশ্লিষ্ট website-এর Netlify Environment Variables-এ থাকা RECEPTION_API_TOKEN-এর সঙ্গে হুবহু মিলতে হবে। Token source code-এ hard-code করবেন না।
+
+নোট:
+- Android platform folder প্রথমবার setup command চালালে তৈরি হবে; ZIP-এ Android Studio-র generated folder রাখা হয়নি।
+- APK build করতে Android Studio/SDK install থাকা প্রয়োজন।
+- Website sync ও server-side booking update-এর জন্য internet এবং website-এর admin-bookings Netlify Function সঠিকভাবে deploy থাকা আবশ্যক।
+- PWA install offline shell দিতে পারে; live bookings sync offline কাজ করবে না।
